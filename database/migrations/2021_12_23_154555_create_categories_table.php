@@ -25,8 +25,8 @@ class CreateCategoriesTable extends Migration
             $table->foreign("parent_id")
             ->references("id")
             ->on("categories")
-            ->onDelete("restrict")
-            ->onUpdate("restrict");
+            ->onDelete("set null")
+            ->onUpdate("set null");
             //RESTRICT ,CASCADE,SETNULL
             
 
