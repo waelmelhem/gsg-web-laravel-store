@@ -36,7 +36,7 @@ class CategoryRequest extends FormRequest
             ],
             "Category_Parent"=>"nullable|int|exists:categories,id",
             "Description"=>"nullable|string|min:5",
-            "image"=>"nullable|image|mimes:png,jpg|max:500|dimensions:min_width=150,min_hegiht=150"
+            "image"=>"nullable|image|mimes:png,jpg|max:500"
         ];
     }
     public function messages(){

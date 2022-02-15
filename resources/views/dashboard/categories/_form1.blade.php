@@ -39,6 +39,13 @@
     </div>
     <div class="col-md-4">
         <div class="form-groub mb-3">
+            @if(isset($category->image))
+                            <div style="margin:auto"><img src="{{ asset('/uploads/'.$category->image)}}" width='200px'> </div>
+                            {{-- <div style="margin: auto"><img src="{{ Storage::disk('uploads')->url($category->image)}}" width='60px'> </div> --}}
+
+                            @else
+                            <div style="margin:auto"><img src="{{ asset('/default/blank.jpg'.$category->image)}}" width='200px'> </div>          
+                            @endif
             <label for="image">Image</label>
             <input type="file" id='image' name='image' class="form-control @error('image') is-invalid @enderror">
             @error('image')

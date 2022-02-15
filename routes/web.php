@@ -38,7 +38,7 @@ function (){
         'as'=>'.categories',
     ]
     ,function(){
-        Route::get('/index',[CategoriesController::class,'index'])->name('.index');
+        Route::get('/',[CategoriesController::class,'index'])->name('.index');
         Route::get('/create',[CategoriesController::class,'create'])->name('.create');
         Route::post('/store',[CategoriesController::class,'store'])->name('.store');
         Route::delete('/{id}',[CategoriesController::class,'destroy'])->name('.destroy');
