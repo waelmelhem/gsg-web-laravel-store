@@ -41,9 +41,12 @@ function (){
         Route::get('/',[CategoriesController::class,'index'])->name('.index');
         Route::get('/create',[CategoriesController::class,'create'])->name('.create');
         Route::post('/store',[CategoriesController::class,'store'])->name('.store');
+        Route::get('/trash',[CategoriesController::class,'trash'])->name('.trash');
+        Route::patch('/{id}/restore',[CategoriesController::class,'restore'])->name('.restore');
         Route::delete('/{id}',[CategoriesController::class,'destroy'])->name('.destroy');
         Route::get('/{id}/edit',[CategoriesController::class,'edit'])->name('.edit');
         Route::put('/{id}',[CategoriesController::class,'update'])->name('.update');
+       
     });
     
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\Scopes\Scope1;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -28,12 +29,19 @@ class CategoriesController extends Controller
         "image"=>"nullable|image|mimes:png,jpg|max:500|dimensions:min_width=150,min_hegiht=150"
     ];
 }
-    public function index()
+    public function index(Request $req)
     {
-        $categories = Category::leftJoin('categories as parents','parents.id',"categories.parent_id")
+        $search=$req->query('search');
+        $categories = Category::
+        // withoutGlobalScope(Scope1::class)->
+        // // withoutGlobalScope('main-Category')
+        // ->
+        // withoutGlobalScopes()->//without soft delete and main-category
+        leftJoin('categories as parents','parents.id',"categories.parent_id")
         ->select(['categories.*',
         'parents.name as parent_name'
         ])
+        ->search($search)
         // ->whereNull('categories.parent_id')
         ->orderBy('categories.name')
         ->get();
@@ -88,13 +96,16 @@ class CategoriesController extends Controller
             
         ]);
         // dd($category);
-        return redirect()->route('dashboard.categories.index');
+        return redirect()->route('dashboard.categories.index')->with('success'," Category ($request->name) created successfuly");
    
     }
     public function edit($id)
     {
         $category=category::find($id);
-        $categories=Category::where('id',"<>",$id)->orderBy('name')->get();
+        $categories=Category::where('id',"<>",$id)->orderBy('name')
+        // ->withTrashed() all data as deleted or not 
+        ->get();
+        
         if(isset($category)){
             return view('dashboard.categories.edit',compact('category','categories'));
         }
@@ -134,13 +145,30 @@ class CategoriesController extends Controller
         if($old){
             (Storage::disk('uploads')->delete($old));
         }
-        return redirect()->route('dashboard.categories.index');
+        return redirect()->route('dashboard.categories.index')->with('success'," Category ($req->name) edited successfuly");;
     }
     public function destroy($id)
     {
-        $category=category::findOrFail($id);
-        $category->delete();
-        (Storage::disk('uploads')->delete($category->image));
-        return redirect()->back();
+        $category=category::withTrashed()->findOrFail($id);
+        if(isset($category->deleted_at)){
+            $category->forceDelete();
+            if($category->image){
+                (Storage::disk('uploads')->delete($category->image));
+            }
+        }
+        else{
+            $category->delete();
+        }
+        return redirect()->back()->with('success'," Category ($category->name) deleted successfuly");
+    }
+    public function trash(){
+        $trashed=Category::onlyTrashed()->orderBy('deleted_at','desc')->get();
+        return view('dashboard.categories.trash',compact('trashed'));
+
+    }
+    public function restore(Request $req,$id){
+        $category=Category::onlyTrashed()->findOrFail($id);
+        $category->restore();
+        return redirect()->route('dashboard.categories.index')->with('success'," Category ($category->name) restored successfuly");
     }
 }
