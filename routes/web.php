@@ -3,7 +3,7 @@
 use App\Http\Controllers\dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\CategroiesCntroller;
-
+use App\Http\Controllers\Dashboard\ProductsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
@@ -30,12 +30,15 @@ Route::get('/news/{id}',[HomeController::class,"news"]);
 // create ,read,update,delte
 route::group([
     'prefix'=>'dashboard/',
-    'as'=>'dashboard',
+    'as'=>'dashboard.',
 ],
 function (){
+    Route::get('products/trash',[ProductsController::class,'trash'])->name('products.trash');
+    Route::patch('products/{id}/restore',[ProductsController::class,'restore'])->name('products.restore');
+    Route::resource('/products',ProductsController::class);
     route::group([
         'prefix'=>'/categories',
-        'as'=>'.categories',
+        'as'=>'categories',
     ]
     ,function(){
         Route::get('/',[CategoriesController::class,'index'])->name('.index');
@@ -46,7 +49,6 @@ function (){
         Route::delete('/{id}',[CategoriesController::class,'destroy'])->name('.destroy');
         Route::get('/{id}/edit',[CategoriesController::class,'edit'])->name('.edit');
         Route::put('/{id}',[CategoriesController::class,'update'])->name('.update');
-       
     });
     
 

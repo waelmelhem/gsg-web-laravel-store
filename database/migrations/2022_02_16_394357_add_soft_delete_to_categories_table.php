@@ -20,6 +20,9 @@ class AddSoftDeleteToCategoriesTable extends Migration
             
         // });
         //we can edit many table by using the sam megration file
+        Schema::table('products', function (Blueprint $table) {
+            $table->softDeletes()->after('updated_at');
+        });
     }
 
     /**
@@ -30,6 +33,9 @@ class AddSoftDeleteToCategoriesTable extends Migration
     public function down()
     {
         Schema::table('categories', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
+        Schema::table('products', function (Blueprint $table) {
             $table->dropSoftDeletes();
         });
     }
