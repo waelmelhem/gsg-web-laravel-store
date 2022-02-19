@@ -15,9 +15,10 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
-        $products=Product::all();
+        $search=$req->query('search');
+        $products=Product::search($search)->get();
         return view('dashboard.products.index',compact('products'));
     }
 
@@ -164,11 +165,11 @@ class ProductsController extends Controller
             "category_id"=>"required|int|exists:categories,id",
             "image"=>"nullable|image",
             "price"=>"required|numeric|min:0",
-            "cost"=>"numeric|min:0",
+            "cost"=>"nullable|numeric|min:0",
             'compare_price'=>"nullable|numeric|gt:price",
             'status'=>'in:active,draft,archived',
-            "availability"=>'in:in-stock,out-of-stock,bach-order',
-            'quantity'=>'nullable|int|min:0',
+            "availability"=>'in:in-stock,out-of-stock,back-order',
+            'quantity'=>'required|int|min:0',
             "SKU"=>'nullable|string|unique:products,SKU,'.$id,
             "barcode"=>'nullable|string|unique:products,barcode,'.$id,
         ];

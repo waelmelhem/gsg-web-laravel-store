@@ -25,7 +25,7 @@ class CategoriesController extends Controller
             // (new Unique('categories','name'))->ignore($id),
         ],
         "Category_Parent"=>"nullable|int|exists:categories,id",
-        "Description"=>"nullable|string|min:5",
+        "description"=>"nullable|string|min:5",
         "image"=>"nullable|image|mimes:png,jpg|max:500|dimensions:min_width=150,min_hegiht=150"
     ];
 }
@@ -89,10 +89,10 @@ class CategoriesController extends Controller
         // exit;
         $category= Category::create([
             'name'=>$request->name,
-            'slug'=>Str::slug($request->name),
+            // 'slug'=>Str::slug($request->name),
             'image'=>$path,
             'parent_id'=>$request->Category_Parent,
-            'description'=>$request->Description,
+            'description'=>$request->description,
             
         ]);
         // dd($category);
@@ -137,10 +137,10 @@ class CategoriesController extends Controller
         // dd();
         $category=category::where("id",$id)->update([
             'name'=>$req->name,
-            'slug'=>Str::slug($req->name),
+            'slug'=>Str::slug($req->name),       
             'parent_id'=>$req->Category_Parent,
             'image'=>$path,
-            'description'=>$req->Description
+            'description'=>$req->description
         ]);
         if($old){
             (Storage::disk('uploads')->delete($old));
@@ -152,9 +152,6 @@ class CategoriesController extends Controller
         $category=category::withTrashed()->findOrFail($id);
         if(isset($category->deleted_at)){
             $category->forceDelete();
-            if($category->image){
-                (Storage::disk('uploads')->delete($category->image));
-            }
         }
         else{
             $category->delete();

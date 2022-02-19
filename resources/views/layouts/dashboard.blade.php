@@ -218,21 +218,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="#" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Active Page</p>
                                     </a>
-                                </li>
-                                <li class="nav-item">
+                                </li> --}}
+                                {{-- <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Inactive Page</p>
                                     </a>
-                                </li>
+                                </li> --}}
+                                {{-- {{end(explode('/',))}} --}}
+
+                                @php($current=(explode('/',"".url()->current())))
                                 @foreach(config('nav') as $item)
+                                
                                 <li class="nav-item">
-                                    <a href="{{$item['route']}}" class="nav-link">
+                                    <a href="{{$item['route']}}" class="nav-link @if(strtolower ($current[count($current)-1])===strtolower($item['title'])) active @endif  ">
                                         <i class="{{$item['icon']}}"></i>
                                         <p>{{$item['title']}}</p>
                                         @if(isset($item['badge']))
@@ -273,6 +277,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
 
                 <div class="content">
+                    
                     <div class="container-fluid">
                         @yield('content')
                     </div>

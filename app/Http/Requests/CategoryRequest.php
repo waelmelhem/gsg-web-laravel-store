@@ -35,7 +35,7 @@ class CategoryRequest extends FormRequest
                 // (new Unique('categories','name'))->ignore($id),
             ],
             "Category_Parent"=>"nullable|int|exists:categories,id",
-            "Description"=>"nullable|string|min:5",
+            "description"=>"nullable|string|min:5",
             "image"=>"nullable|image|mimes:png,jpg|max:500"
         ];
     }
