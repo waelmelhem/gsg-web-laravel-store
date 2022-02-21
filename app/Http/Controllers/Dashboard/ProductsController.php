@@ -10,6 +10,9 @@ use Illuminate\support\str;
 
 class ProductsController extends Controller
 {
+    PUBLIC FUNCTION __CONSTRUCT(){
+        // $this->middleware(['auth']);
+    }
     /**
      * Display a listing of the resource.
      *

@@ -1,10 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\CategroiesCntroller;
 use App\Http\Controllers\Dashboard\ProductsController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
 /*
@@ -18,6 +18,13 @@ use App\Http\Controllers\HomeController;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard/breeze', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 Route::get('/',[HomeController::class,'index']);
 
 Route::get('/news',[HomeController::class,"news"]);
@@ -31,8 +38,11 @@ Route::get('/news/{id}',[HomeController::class,"news"]);
 route::group([
     'prefix'=>'dashboard/',
     'as'=>'dashboard.',
+    'middleware'=>'auth'
 ],
 function (){
+    Route::get('/',[DashboardController::class,"index"])->name('dashboard');
+    Route::get('/page',[DashboardController::class,"page"])->name('dashboard.page');
     Route::get('products/trash',[ProductsController::class,'trash'])->name('products.trash');
     Route::patch('products/{id}/restore',[ProductsController::class,'restore'])->name('products.restore');
     Route::resource('/products',ProductsController::class);
@@ -56,5 +66,8 @@ function (){
 });
 
 //dashboard
-Route::get('/dashboard',[DashboardController::class,"index"])->name('dashboard');
-Route::get('/dashboard/page',[DashboardController::class,"page"])->name('dashboard.page');
+// Route::get('/dashboard',[DashboardController::class,"index"])->name('dashboard');
+// Route::get('/dashboard/page',[DashboardController::class,"page"])->name('dashboard.page');
+
+
+require __DIR__.'/auth.php';
