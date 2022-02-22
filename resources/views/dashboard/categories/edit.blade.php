@@ -4,7 +4,6 @@
 
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item "><a href="{{ route('dashboard.categories.index',$category->id) }}">categories</a></li>
     <li class="breadcrumb-item active">Edit Categories</li>
 
 @endsection

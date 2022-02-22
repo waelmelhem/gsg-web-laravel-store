@@ -186,7 +186,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ucwords(Auth::user()->name)}}</a>
+                        <a href="{{url('/profile')}}" class="d-block">{{ucwords(Auth::user()->name)}}</a>
                     </div>
                     <div>
                         <a style="position: absolute;right:10px;top:6px"href="#"><i  style='font-size:24px;' class='fas fa-sign-out-alt' onclick="document.getElementById('formLogOut').submit()"></i></a>
