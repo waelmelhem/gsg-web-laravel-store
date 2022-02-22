@@ -17,6 +17,7 @@
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.8",
         "laravel/sail": "^1.0.1",
+        "mbezhanov/laravel-faker-provider-collection": "^2.0",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^5.10",
         "phpunit/phpunit": "^9.5.10"

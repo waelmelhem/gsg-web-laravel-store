@@ -36,7 +36,7 @@
     </div>
     <div class="col-md-4">
         <x-form.select id="status" title="Status" type="list" name="status" default="Select one" selecteValue="{{$product->status}}" :data="$status"/>
-        <x-form.image objectimage="{{$product->image}}" id="image" title="Image" name="image"/>
+        <x-form.image  objectimage="{{$product->image_url}}" id="image" title="Image" name="image"/>
 
     </div>
 </div>

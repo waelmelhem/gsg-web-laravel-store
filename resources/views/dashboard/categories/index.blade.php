@@ -48,13 +48,8 @@
                     <tr>
                         <td>
                             {{-- {{$category->image}} --}}
-                            @if($category->image)
-                            <div style="margin: auto"><img src="{{ asset('/uploads/'.$category->image)}}" width='60px'> </div>
-                            {{-- <div style="margin: auto"><img src="{{ Storage::disk('uploads')->url($category->image)}}" width='60px'> </div> --}}
-
-                            @else
-                            <div style="margin: auto"><img src="{{ asset('/default/blank.jpg'.$category->image)}}" width='60px'> </div>          
-                            @endif
+                            
+                            <div style="margin: auto"><img src="{{ $category->image_url}}" width='60px'> </div>
                         </td>
                         <td>{{$category->id}}</td>
                         <td>{{$category->name}}</td>

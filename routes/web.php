@@ -20,14 +20,12 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::get('/dashboard/breeze', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard.breeze');
-Route::get('/',[HomeController::class,'index']);
+Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/profile',[UserProfileController::class,"index"])->name('profile')->middleware(['auth:web,admin']);
 Route::patch('/profile/{id}',[UserProfileController::class,"update"])->name('profile.update')->middleware(['auth:web,admin',"password.confirm"]);
 

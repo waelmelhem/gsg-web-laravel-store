@@ -18,8 +18,7 @@ class CategoryFactory extends Factory
 
         return [
             'parent_id'=>null,
-            'name'=>implode(" ",$arr),
-            'slug'=>strtolower(implode("-",$arr)),
+            'name'=>$this->faker->department,
             'description'=> $this->faker->sentence(1,true),
             'image'=>$this->faker->imageUrl(),
 

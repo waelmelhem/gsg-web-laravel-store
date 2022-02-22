@@ -36,4 +36,19 @@ class Product extends Model
             $product->slug=Str::slug($product->name);
         });
     }
+    public function getImageUrlAttribute(){
+        if(!$this->image){
+            return  asset('/default/blank.jpg');
+        }
+        else if(Str::startsWith($this->image,['https','http'])){
+            // dd($this->image);
+            return $this->image;
+        }
+        else{
+            return asset('/uploads/'.$this->image);
+        }
+    }
+    public function getPercentAttribute(){
+        return round((($this->compare_price-$this->price)/($this->compare_price))*100,2);
+    }
 }

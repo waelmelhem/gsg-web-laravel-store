@@ -6,7 +6,7 @@
         <x-form.textArea id="Description" title="Description" name="description" :value="$category->description"/>
     </div>
     <div class="col-md-4">
-        <x-form.image objectimage="{{$category->image}}" id="image" title="Image" name="image"/>
+        <x-form.image objectimage="{{$category->image_url}}" id="image" title="Image" name="image"/>
     </div>
     
 </div>

@@ -31,5 +31,16 @@ class Category extends Model
         // dd($value);
         $builder->where('categories.name','like',"%$value%");
     }
-    
+    public function getImageUrlAttribute(){
+        if(!$this->image){
+            return  asset('/default/blank.jpg');
+        }
+        else if(Str::startsWith($this->image,['https','http'])){
+            // dd($this->image);
+            return $this->image;
+        }
+        else{
+            return asset('/uploads/'.$this->image);
+        }
+    }
 }

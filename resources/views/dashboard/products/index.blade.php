@@ -50,14 +50,7 @@
                     @foreach($products as $product )
                     <tr>
                         <td>
-                            {{-- {{$product->image}} --}}
-                            @if($product->image)
-                            <div style="margin: auto"><img src="{{ asset('/uploads/'.$product->image)}}" width='60px'> </div>
-                            {{-- <div style="margin: auto"><img src="{{ Storage::disk('uploads')->url($product->image)}}" width='60px'> </div> --}}
-
-                            @else
-                            <div style="margin: auto"><img src="{{ asset('/default/blank.jpg'.$product->image)}}" width='60px'> </div>          
-                            @endif
+                            <div style="margin: auto"><img src="{{ $product->image_url}}" width='60px'> </div>
                         </td>
                         <td>{{$product->id}}</td>
                         <td>{{$product->name}}</td>
