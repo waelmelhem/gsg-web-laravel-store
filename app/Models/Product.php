@@ -36,6 +36,10 @@ class Product extends Model
             $product->slug=Str::slug($product->name);
         });
     }
+    //one to many :many product belong to one category
+    public function Category(){
+        return $this->belongsTo(Category::class,'category_id','id');
+    }
     public function getImageUrlAttribute(){
         if(!$this->image){
             return  asset('/default/blank.jpg');

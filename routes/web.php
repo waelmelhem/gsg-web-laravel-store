@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\CategroiesCntroller;
 use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,9 @@ use App\Http\Controllers\HomeController;
 Route::get('/dashboard/breeze', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard.breeze');
+Route::get('/products/{category:slug?}',[ProductPageController::class,"index"])->name('products');
+Route::get('/products/{category:slug}/{product:slug}',[ProductPageController::class,"show"])->name('product.show');
+
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/profile',[UserProfileController::class,"index"])->name('profile')->middleware(['auth:web,admin']);
 Route::patch('/profile/{id}',[UserProfileController::class,"update"])->name('profile.update')->middleware(['auth:web,admin',"password.confirm"]);
