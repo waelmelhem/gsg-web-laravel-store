@@ -55,4 +55,15 @@ class Product extends Model
     public function getPercentAttribute(){
         return round((($this->compare_price-$this->price)/($this->compare_price))*100,2);
     }
+    public function tags(){
+        return $this->belongsToMany(Tags::class);
+    //     return $this->belongsToMany(
+    //         Tag::class,//Related model
+    //         'product_tag',//pivote Table
+    //         'product_id',//model FK in pivote
+    //         'tag_id',//model FK in pivote
+    //         'id',//local PK currrent
+    //         'id'//locall PK related
+    // );
+    }
 }
