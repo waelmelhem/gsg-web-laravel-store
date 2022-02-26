@@ -3,7 +3,7 @@
         <div class="test">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
+                    <x-flash_message/>
                     </div>
                 </div>
             </div>
@@ -15,32 +15,40 @@
                         <div class="ps-product__thumbnail">
                             <div class="ps-product__preview">
                                 <div class="ps-product__variants">
-                                    <div class="item"><img  src="{{$product->image_url}}" alt=""></div>
-                                    <div class="item"><img  src="{{asset('assest/store/images/shoe-detail/2.jpg')}}" alt=""></div>
-                                    <div class="item"><img  src="{{asset('assest/store/images/shoe-detail/3.jpg')}}" alt=""></div>
-                                    <div class="item"><img  src="{{asset('assest/store/images/shoe-detail/3.jpg')}}" alt=""></div>
-                                    <div class="item"><img  src="{{asset('assest/store/images/shoe-detail/3.jpg')}}" alt=""></div>
+                                    <div class="item"><img src="{{ $product->image_url }}" alt=""></div>
+                                    <div class="item"><img
+                                            src="{{ asset('assest/store/images/shoe-detail/2.jpg') }}" alt=""></div>
+                                    <div class="item"><img
+                                            src="{{ asset('assest/store/images/shoe-detail/3.jpg') }}" alt=""></div>
+                                    <div class="item"><img
+                                            src="{{ asset('assest/store/images/shoe-detail/3.jpg') }}" alt=""></div>
+                                    <div class="item"><img
+                                            src="{{ asset('assest/store/images/shoe-detail/3.jpg') }}" alt=""></div>
                                 </div><a class="popup-youtube ps-product__video"
                                     href="http://www.youtube.com/watch?v=0O2aH4XLbto"><img
-                                         src="{{$product->image_url}}" alt=""><i class="fa fa-play"></i></a>
+                                        src="{{ $product->image_url }}" alt=""><i class="fa fa-play"></i></a>
                             </div>
                             <div class="ps-product__image">
-                                <div class="item"><img class="zoom"  src="{{$product->image_url}}"
-                                        alt="" data-zoom-image="{{$product->image_url}}"></div>
-                                <div class="item"><img class="zoom"  src="{{asset('assest/store/images/shoe-detail/2.jpg')}}"
-                                        alt="" data-zoom-image="images/shoe-detail/2.jpg')}}"></div>
-                                <div class="item"><img class="zoom"  src="{{asset('assest/store/images/shoe-detail/3.jpg')}}"
-                                        alt="" data-zoom-image="images/shoe-detail/3.jpg')}}"></div>
+                                <div class="item"><img class="zoom"
+                                        src="{{ $product->image_url }}" alt=""
+                                        data-zoom-image="{{ $product->image_url }}"></div>
+                                <div class="item"><img class="zoom"
+                                        src="{{ asset('assest/store/images/shoe-detail/2.jpg') }}" alt=""
+                                        data-zoom-image="images/shoe-detail/2.jpg')}}"></div>
+                                <div class="item"><img class="zoom"
+                                        src="{{ asset('assest/store/images/shoe-detail/3.jpg') }}" alt=""
+                                        data-zoom-image="images/shoe-detail/3.jpg')}}"></div>
                             </div>
                         </div>
                         <div class="ps-product__thumbnail--mobile">
-                            <div class="ps-product__main-img"><img  src="{{$product->image_url}}" alt=""></div>
+                            <div class="ps-product__main-img"><img src="{{ $product->image_url }}" alt=""></div>
                             <div class="ps-product__preview owl-slider" data-owl-auto="true" data-owl-loop="true"
                                 data-owl-speed="5000" data-owl-gap="20" data-owl-nav="true" data-owl-dots="false"
                                 data-owl-item="3" data-owl-item-xs="3" data-owl-item-sm="3" data-owl-item-md="3"
                                 data-owl-item-lg="3" data-owl-duration="1000" data-owl-mousedrag="on"><img
-                                     src="{{$product->image_url}}" alt=""><img  src="{{asset('assest/store/images/shoe-detail/2.jpg')}}"
-                                    alt=""><img  src="{{asset('assest/store/images/shoe-detail/3.jpg')}}" alt=""></div>
+                                    src="{{ $product->image_url }}" alt=""><img
+                                    src="{{ asset('assest/store/images/shoe-detail/2.jpg') }}" alt=""><img
+                                    src="{{ asset('assest/store/images/shoe-detail/3.jpg') }}" alt=""></div>
                         </div>
                         <div class="ps-product__info">
                             <div class="ps-product__rating">
@@ -52,53 +60,71 @@
                                     <option value="2">5</option>
                                 </select><a href="#">(Read all 8 reviews)</a>
                             </div>
-                            <h1>{{$product->name}}</h1>
-                            <p class="ps-product__category"><a href="{{route('products',$category)}}">{{$product->category->name}}</a></p>
-                            <h3 class="ps-product__price">{{Money::format($product->price)}}<del>{{Money::format($product->compare_price)}}</del></h3>
+                            <h1>{{ $product->name }}</h1>
+                            <p class="ps-product__category"><a
+                                    href="{{ route('products', $category) }}">{{ $product->category->name }}</a>
+                            </p>
+                            <h3 class="ps-product__price">
+                                {{ Money::format($product->price) }}<del>{{ Money::format($product->compare_price) }}</del>
+                            </h3>
                             <div class="ps-product__block ps-product__quickview">
                                 <h4>QUICK REVIEW</h4>
-                                <p>{{$product->description}}</p>
+                                <p>{{ $product->description }}</p>
                             </div>
                             <div class="ps-product__block ps-product__style">
                                 <h4>CHOOSE YOUR STYLE</h4>
                                 <ul>
-                                    <li><a href="product-detail.html"><img  src="{{asset('assest/store/images/shoe/sidebar/1.jpg')}}" alt=""></a>
+                                    <li><a href="product-detail.html"><img
+                                                src="{{ asset('assest/store/images/shoe/sidebar/1.jpg') }}"
+                                                alt=""></a>
                                     </li>
-                                    <li><a href="product-detail.html"><img  src="{{asset('assest/store/images/shoe/sidebar/2.jpg')}}" alt=""></a>
+                                    <li><a href="product-detail.html"><img
+                                                src="{{ asset('assest/store/images/shoe/sidebar/2.jpg') }}"
+                                                alt=""></a>
                                     </li>
-                                    <li><a href="product-detail.html"><img  src="{{asset('assest/store/images/shoe/sidebar/3.jpg')}}" alt=""></a>
+                                    <li><a href="product-detail.html"><img
+                                                src="{{ asset('assest/store/images/shoe/sidebar/3.jpg') }}"
+                                                alt=""></a>
                                     </li>
-                                    <li><a href="product-detail.html"><img  src="{{asset('assest/store/images/shoe/sidebar/2.jpg')}}" alt=""></a>
+                                    <li><a href="product-detail.html"><img
+                                                src="{{ asset('assest/store/images/shoe/sidebar/2.jpg') }}"
+                                                alt=""></a>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="ps-product__block ps-product__size">
-                                <h4>CHOOSE SIZE<a href="#">Size chart</a></h4>
-                                <select class="ps-select selectpicker">
-                                    <option value="1">Select Size</option>
-                                    <option value="2">4</option>
-                                    <option value="3">4.5</option>
-                                    <option value="3">5</option>
-                                    <option value="3">6</option>
-                                    <option value="3">6.5</option>
-                                    <option value="3">7</option>
-                                    <option value="3">7.5</option>
-                                    <option value="3">8</option>
-                                    <option value="3">8.5</option>
-                                    <option value="3">9</option>
-                                    <option value="3">9.5</option>
-                                    <option value="3">10</option>
-                                </select>
-                                <div class="form-group">
-                                    <input class="form-control" type="number" value="1">
+                            <form method='post' action="{{route('cart.store')}}">
+                                @csrf
+                                <input tpye="text" hidden value="{{$product->id}}" name="product_id">
+                                <div class="ps-product__block ps-product__size">
+                                    <h4>CHOOSE SIZE<a href="#">Size chart</a></h4>
+                                    <select class="ps-select selectpicker">
+                                        <option value="1">Select Size</option>
+                                        <option value="2">4</option>
+                                        <option value="3">4.5</option>
+                                        <option value="3">5</option>
+                                        <option value="3">6</option>
+                                        <option value="3">6.5</option>
+                                        <option value="3">7</option>
+                                        <option value="3">7.5</option>
+                                        <option value="3">8</option>
+                                        <option value="3">8.5</option>
+                                        <option value="3">9</option>
+                                        <option value="3">9.5</option>
+                                        <option value="3">10</option>
+                                    </select>
+                                    <div class="form-group">
+                                        <input class="form-control" name="quantity" type="number" value="1">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="ps-product__shopping"><a class="ps-btn mb-10" href="cart.html">Add to cart<i
-                                        class="ps-icon-next"></i></a>
-                                <div class="ps-product__actions"><a class="mr-10" href="whishlist.html"><i
-                                            class="ps-icon-heart"></i></a><a href="compare.html"><i
-                                            class="ps-icon-share"></i></a></div>
-                            </div>
+                                <div class="ps-product__shopping">
+                                    <button class="ps-btn mb-10" type="submit">
+                                        Add to cart<i class="ps-icon-next"></i>
+                                    </button>
+                                    <div class="ps-product__actions"><a class="mr-10" href="whishlist.html"><i
+                                                class="ps-icon-heart"></i></a><a href="compare.html"><i
+                                                class="ps-icon-share"></i></a></div>
+                                </div>
+                            </form>
                         </div>
                         <div class="clearfix"></div>
                         <div class="ps-product__content mt-50">
@@ -115,12 +141,13 @@
                         </div>
                         <div class="tab-content mb-60">
                             <div class="tab-pane active" role="tabpanel" id="tab_01">
-                                <p>{{$product->description}}</p>
+                                <p>{{ $product->description }}</p>
                             </div>
                             <div class="tab-pane" role="tabpanel" id="tab_02">
                                 <p class="mb-20">1 review for <strong>Shoes Air Jordan</strong></p>
                                 <div class="ps-review">
-                                    <div class="ps-review__thumbnail"><img  src="{{asset('assest/store/images/user/1.jpg')}}" alt=""></div>
+                                    <div class="ps-review__thumbnail"><img
+                                            src="{{ asset('assest/store/images/user/1.jpg') }}" alt=""></div>
                                     <div class="ps-review__content">
                                         <header>
                                             <select class="ps-rating">
@@ -221,14 +248,17 @@
                             <div class="ps-shoe">
                                 <div class="ps-shoe__thumbnail">
                                     <div class="ps-badge"><span>New</span></div><a class="ps-shoe__favorite"
-                                        href="#"><i class="ps-icon-heart"></i></a><img  src="{{asset('assest/store/images/shoe/1.jpg')}}"
-                                        alt=""><a class="ps-shoe__overlay" href="product-detail.html"></a>
+                                        href="#"><i class="ps-icon-heart"></i></a><img
+                                        src="{{ asset('assest/store/images/shoe/1.jpg') }}" alt=""><a
+                                        class="ps-shoe__overlay" href="product-detail.html"></a>
                                 </div>
                                 <div class="ps-shoe__content">
                                     <div class="ps-shoe__variants">
-                                        <div class="ps-shoe__variant normal"><img  src="{{asset('assest/store/images/shoe/2.jpg')}}" alt=""><img
-                                                 src="{{asset('assest/store/images/shoe/3.jpg')}}" alt=""><img  src="{{asset('assest/store/images/shoe/4.jpg')}}" alt=""><img
-                                                 src="{{asset('assest/store/images/shoe/5.jpg')}}" alt=""></div>
+                                        <div class="ps-shoe__variant normal"><img
+                                                src="{{ asset('assest/store/images/shoe/2.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/3.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/4.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/5.jpg') }}" alt=""></div>
                                         <select class="ps-rating ps-shoe__rating">
                                             <option value="1">1</option>
                                             <option value="1">2</option>
@@ -252,14 +282,16 @@
                                     <div class="ps-badge"><span>New</span></div>
                                     <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-35%</span></div><a
                                         class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a><img
-                                         src="{{asset('assest/store/images/shoe/2.jpg')}}" alt=""><a class="ps-shoe__overlay"
-                                        href="product-detail.html"></a>
+                                        src="{{ asset('assest/store/images/shoe/2.jpg') }}" alt=""><a
+                                        class="ps-shoe__overlay" href="product-detail.html"></a>
                                 </div>
                                 <div class="ps-shoe__content">
                                     <div class="ps-shoe__variants">
-                                        <div class="ps-shoe__variant normal"><img  src="{{asset('assest/store/images/shoe/2.jpg')}}" alt=""><img
-                                                 src="{{asset('assest/store/images/shoe/3.jpg')}}" alt=""><img  src="{{asset('assest/store/images/shoe/4.jpg')}}" alt=""><img
-                                                 src="{{asset('assest/store/images/shoe/5.jpg')}}" alt=""></div>
+                                        <div class="ps-shoe__variant normal"><img
+                                                src="{{ asset('assest/store/images/shoe/2.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/3.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/4.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/5.jpg') }}" alt=""></div>
                                         <select class="ps-rating ps-shoe__rating">
                                             <option value="1">1</option>
                                             <option value="1">2</option>
@@ -281,14 +313,17 @@
                             <div class="ps-shoe">
                                 <div class="ps-shoe__thumbnail">
                                     <div class="ps-badge"><span>New</span></div><a class="ps-shoe__favorite"
-                                        href="#"><i class="ps-icon-heart"></i></a><img  src="{{asset('assest/store/images/shoe/3.jpg')}}"
-                                        alt=""><a class="ps-shoe__overlay" href="product-detail.html"></a>
+                                        href="#"><i class="ps-icon-heart"></i></a><img
+                                        src="{{ asset('assest/store/images/shoe/3.jpg') }}" alt=""><a
+                                        class="ps-shoe__overlay" href="product-detail.html"></a>
                                 </div>
                                 <div class="ps-shoe__content">
                                     <div class="ps-shoe__variants">
-                                        <div class="ps-shoe__variant normal"><img  src="{{asset('assest/store/images/shoe/2.jpg')}}" alt=""><img
-                                                 src="{{asset('assest/store/images/shoe/3.jpg')}}" alt=""><img  src="{{asset('assest/store/images/shoe/4.jpg')}}" alt=""><img
-                                                 src="{{asset('assest/store/images/shoe/5.jpg')}}" alt=""></div>
+                                        <div class="ps-shoe__variant normal"><img
+                                                src="{{ asset('assest/store/images/shoe/2.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/3.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/4.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/5.jpg') }}" alt=""></div>
                                         <select class="ps-rating ps-shoe__rating">
                                             <option value="1">1</option>
                                             <option value="1">2</option>
@@ -309,14 +344,17 @@
                         <div class="ps-shoes--carousel">
                             <div class="ps-shoe">
                                 <div class="ps-shoe__thumbnail"><a class="ps-shoe__favorite" href="#"><i
-                                            class="ps-icon-heart"></i></a><img  src="{{asset('assest/store/images/shoe/4.jpg')}}" alt=""><a
+                                            class="ps-icon-heart"></i></a><img
+                                        src="{{ asset('assest/store/images/shoe/4.jpg') }}" alt=""><a
                                         class="ps-shoe__overlay" href="product-detail.html"></a>
                                 </div>
                                 <div class="ps-shoe__content">
                                     <div class="ps-shoe__variants">
-                                        <div class="ps-shoe__variant normal"><img  src="{{asset('assest/store/images/shoe/2.jpg')}}" alt=""><img
-                                                 src="{{asset('assest/store/images/shoe/3.jpg')}}" alt=""><img  src="{{asset('assest/store/images/shoe/4.jpg')}}" alt=""><img
-                                                 src="{{asset('assest/store/images/shoe/5.jpg')}}" alt=""></div>
+                                        <div class="ps-shoe__variant normal"><img
+                                                src="{{ asset('assest/store/images/shoe/2.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/3.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/4.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/5.jpg') }}" alt=""></div>
                                         <select class="ps-rating ps-shoe__rating">
                                             <option value="1">1</option>
                                             <option value="1">2</option>
@@ -338,14 +376,17 @@
                             <div class="ps-shoe">
                                 <div class="ps-shoe__thumbnail">
                                     <div class="ps-badge"><span>New</span></div><a class="ps-shoe__favorite"
-                                        href="#"><i class="ps-icon-heart"></i></a><img  src="{{asset('assest/store/images/shoe/5.jpg')}}"
-                                        alt=""><a class="ps-shoe__overlay" href="product-detail.html"></a>
+                                        href="#"><i class="ps-icon-heart"></i></a><img
+                                        src="{{ asset('assest/store/images/shoe/5.jpg') }}" alt=""><a
+                                        class="ps-shoe__overlay" href="product-detail.html"></a>
                                 </div>
                                 <div class="ps-shoe__content">
                                     <div class="ps-shoe__variants">
-                                        <div class="ps-shoe__variant normal"><img  src="{{asset('assest/store/images/shoe/2.jpg')}}" alt=""><img
-                                                 src="{{asset('assest/store/images/shoe/3.jpg')}}" alt=""><img  src="{{asset('assest/store/images/shoe/4.jpg')}}" alt=""><img
-                                                 src="{{asset('assest/store/images/shoe/5.jpg')}}" alt=""></div>
+                                        <div class="ps-shoe__variant normal"><img
+                                                src="{{ asset('assest/store/images/shoe/2.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/3.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/4.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/5.jpg') }}" alt=""></div>
                                         <select class="ps-rating ps-shoe__rating">
                                             <option value="1">1</option>
                                             <option value="1">2</option>
@@ -366,14 +407,17 @@
                         <div class="ps-shoes--carousel">
                             <div class="ps-shoe">
                                 <div class="ps-shoe__thumbnail"><a class="ps-shoe__favorite" href="#"><i
-                                            class="ps-icon-heart"></i></a><img  src="{{asset('assest/store/images/shoe/6.jpg')}}" alt=""><a
+                                            class="ps-icon-heart"></i></a><img
+                                        src="{{ asset('assest/store/images/shoe/6.jpg') }}" alt=""><a
                                         class="ps-shoe__overlay" href="product-detail.html"></a>
                                 </div>
                                 <div class="ps-shoe__content">
                                     <div class="ps-shoe__variants">
-                                        <div class="ps-shoe__variant normal"><img  src="{{asset('assest/store/images/shoe/2.jpg')}}" alt=""><img
-                                                 src="{{asset('assest/store/images/shoe/3.jpg')}}" alt=""><img  src="{{asset('assest/store/images/shoe/4.jpg')}}" alt=""><img
-                                                 src="{{asset('assest/store/images/shoe/5.jpg')}}" alt=""></div>
+                                        <div class="ps-shoe__variant normal"><img
+                                                src="{{ asset('assest/store/images/shoe/2.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/3.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/4.jpg') }}" alt=""><img
+                                                src="{{ asset('assest/store/images/shoe/5.jpg') }}" alt=""></div>
                                         <select class="ps-rating ps-shoe__rating">
                                             <option value="1">1</option>
                                             <option value="1">2</option>
@@ -419,7 +463,7 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
                             <aside class="ps-widget--footer ps-widget--info">
-                                <header><a class="ps-logo" href="index.html"><img  src="{{asset('assest/store/images/logo-white.png"
+                                <header><a class="ps-logo" href="index.html"><img src="{{asset('assest/store/images/logo-white.png"
                                             alt=""></a>
                                     <h3 class="ps-widget__title">Address Office 1</h3>
                                 </header>

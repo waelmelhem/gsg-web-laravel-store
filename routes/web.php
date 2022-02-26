@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\ChangeUserPasswordController;
 use App\Http\Controllers\Auth\UserProfileController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -38,7 +39,8 @@ Route::put('/change_password/update',[ChangeUserPasswordController::class,"updat
 
 Route::get('/news',[HomeController::class,"news"]);
 
-
+Route::get('/cart',[CartController::class,'index'])->name('cart');
+Route::post('/cart',[CartController::class,'store'])->name('cart.store');
 Route::get('/news/latest',[HomeController::class,"index"]);
 Route::get('/news/{id}',[HomeController::class,"news"]);
 

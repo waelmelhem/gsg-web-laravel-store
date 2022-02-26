@@ -52,6 +52,9 @@ class Product extends Model
             return asset('/uploads/'.$this->image);
         }
     }
+    public function getUrlAttribute(){
+        return route('product.show',[$this->category->slug,$this->slug]);
+    }
     public function getPercentAttribute(){
         return round((($this->compare_price-$this->price)/($this->compare_price))*100,2);
     }
@@ -65,5 +68,14 @@ class Product extends Model
     //         'id',//local PK currrent
     //         'id'//locall PK related
     // );
+    }
+    public function cartUsers(){
+        return $this->belongsToMany(User::class,
+        'carts',
+        'product_id',
+        'user_id',
+        'id',
+        'id'
+    );
     }
 }

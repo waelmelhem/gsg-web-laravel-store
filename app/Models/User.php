@@ -44,4 +44,19 @@ class User extends Authenticatable implements MustVerifyEmail
     public function Profile(){
         return $this->hasOne(Profile::class,'user_id','id')->withDefault();
     }
+    public function cartProducts(){
+        return $this->belongsToMany(Product::class,
+        'carts',
+        'user_id',
+        'product_id',
+        'id',
+        'id'
+    );
+    }
+    public function cart(){
+        return $this->hasMany(Cart::class,
+        'user_id',
+        'id'
+    );
+    }
 }
