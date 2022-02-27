@@ -3,6 +3,8 @@
 namespace App\View\Components;
 
 use App\Models\cart;
+use App\Repositories\cart\CartRepository;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
@@ -18,17 +20,11 @@ class cartMenue extends Component
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(CartRepository $cart)
     {
-        $this->cart=Cart::where('cookie_id', '=',app("cart.cookie_id"))
-        ->orWhere('user_id','=',Auth::id())
-        ->get();
-        $this->total=$this->cart->sum(function($item){
-            return $item->quantity*$item->product->price;
-        });
-        $this->count=$this->cart->sum(function($item){
-            return $item->quantity;
-        });
+        $this->cart=$cart->all();
+        $this->total=$cart->total();
+        $this->count=$cart->count();
     }
 
     /**

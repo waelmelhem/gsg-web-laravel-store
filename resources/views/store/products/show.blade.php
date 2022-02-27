@@ -1,4 +1,4 @@
-<x-store-layout>
+<x-store-layout :title="$product->name">
     <main class="ps-main">
         <div class="test">
             <div class="container">

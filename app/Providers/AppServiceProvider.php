@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\cart\CartRepository;
+use App\Repositories\cart\DatabaseRepository;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
@@ -24,6 +26,10 @@ class AppServiceProvider extends ServiceProvider
             }
             return $cookie_id;
         });
+        $this->app->bind(CartRepository::class,function($app){
+            return new DatabaseRepository($app->make('cart.cookie_id'));
+        });
+
     }
 
     /**

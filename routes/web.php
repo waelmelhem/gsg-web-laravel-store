@@ -41,6 +41,9 @@ Route::get('/news',[HomeController::class,"news"]);
 
 Route::get('/cart',[CartController::class,'index'])->name('cart');
 Route::post('/cart',[CartController::class,'store'])->name('cart.store');
+Route::delete('/cart/{id}',[CartController::class,'destroy'])->name('cart.destroy');
+
+
 Route::get('/news/latest',[HomeController::class,"index"]);
 Route::get('/news/{id}',[HomeController::class,"news"]);
 

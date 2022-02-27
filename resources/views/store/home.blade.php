@@ -1,4 +1,4 @@
-<x-store-layout>
+<x-store-layout title="Home">
     <div class="ps-banner">
         <div class="rev_slider fullscreenbanner" id="home-banner">
             <ul>

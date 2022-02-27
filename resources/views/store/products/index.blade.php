@@ -1,4 +1,4 @@
-<x-store-layout>
+<x-store-layout title="Products">
     <div class="ps-products-wrap">
         @if($category->name)
         <h2>{{$category->name}}</h2>
