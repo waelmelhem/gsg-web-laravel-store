@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ChangeUserPasswordController;
 use App\Http\Controllers\Auth\UserProfileController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\checkoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -43,6 +44,8 @@ Route::get('/cart',[CartController::class,'index'])->name('cart');
 Route::post('/cart',[CartController::class,'store'])->name('cart.store');
 Route::delete('/cart/{id}',[CartController::class,'destroy'])->name('cart.destroy');
 
+Route::get('/checkout',[checkoutController::class,'index'])->name('checkout');
+Route::post('/checkout',[checkoutController::class,'store'])->name('checkout.store');
 
 Route::get('/news/latest',[HomeController::class,"index"]);
 Route::get('/news/{id}',[HomeController::class,"news"]);
