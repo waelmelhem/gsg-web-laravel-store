@@ -8,41 +8,21 @@
                         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
                             <div class="ps-checkout__billing">
                                 <h3>Billing Detail</h3>
-                                <div class="form-group form-group--inline">
-                                    <label>First Name<span>*</span>
-                                    </label>
-                                    <input class="form-control" type="text">
-                                </div>
-                                <div class="form-group form-group--inline">
-                                    <label>Last Name<span>*</span>
-                                    </label>
-                                    <input class="form-control" type="text">
-                                </div>
-                                <div class="form-group form-group--inline">
-                                    <label>Company Name<span>*</span>
-                                    </label>
-                                    <input class="form-control" type="text">
-                                </div>
-                                <div class="form-group form-group--inline">
-                                    <label>Email Address<span>*</span>
-                                    </label>
-                                    <input class="form-control" type="email">
-                                </div>
-                                <div class="form-group form-group--inline">
-                                    <label>Company Name<span>*</span>
-                                    </label>
-                                    <input class="form-control" type="text">
-                                </div>
-                                <div class="form-group form-group--inline">
-                                    <label>Phone<span>*</span>
-                                    </label>
-                                    <input class="form-control" type="text">
-                                </div>
-                                <div class="form-group form-group--inline">
-                                    <label>Address<span>*</span>
-                                    </label>
-                                    <input class="form-control" type="text">
-                                </div>
+
+                                <x-form.input  id="first_name" title="First Name" type="text" name="shipping[first_name]" :value="$user->profile->first_name"/>
+                                
+                                <x-form.input  id="last_name" title="Last Name" type="text" name="shipping[last_name]" :value="$user->profile->last_name"/>
+
+                                <x-form.input  id="phone" title="Phone Number" type="text" name="shipping[phone_number]"/>
+
+                                <x-form.input  id="email" title="Email" type="text" name="shipping[email]" :value="$user->email"/>
+
+                                <x-form.input  id="street_adress" title="Street Adress" type="text" name="shipping[street_address]" :value="$user->profile->address"/>
+                                
+                                <x-form.input  id="city" title="City" type="text" name="shipping[city]" :value="$user->profile->city"/>
+                                
+                                <x-form.select-key id="country_code" title="Country Code" type="list" name="shipping[country_code]" default="select one" selecteValue="{{$user->profile->country_code}}" :data="Symfony\Component\Intl\Countries::getNames()"/>
+
                                 <div class="form-group">
                                     <div class="ps-checkbox">
                                         <input class="form-control" type="checkbox" id="cb01">
@@ -74,7 +54,7 @@
                                             @foreach($cart->all() as $item)
                                             <tr>
                                                 <td>{{$item->product->name}}{{"".($item->quantity===1)?"":(' *'.$item->quantity)}}</td>
-                                                <td>{{Money::format($item->product->price)}}</td>
+                                                <td>{{Money::format($item->product->price*$item->quantity)}}</td>
                                             </tr>
                                             @endforeach
                                             <tr>

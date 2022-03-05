@@ -6,6 +6,8 @@ use App\Models\cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
+use phpDocumentor\Reflection\Types\This;
+
 class DatabaseRepository implements CartRepository
 {
     protected $item;
@@ -71,15 +73,23 @@ class DatabaseRepository implements CartRepository
         // dd($this->cookie_id);
     }
     public function empty(){
-        Cart::where([
-            'cookie_id'=>$this->cookie_id,
-        ])
+        
+        $id=Auth::id();
+        $this->item=cart::with('product')
+        ->where('cookie_id', '=',$this->cookie_id)
+        ->When($id,function($query,$id){
+            $query->orWhere('user_id',$id);
+        })
         ->delete();
     }
     public function total(){
-        return $this->item->sum(function($item){
-            return $item->quantity*$item->product->price;
-        });
+        $this->all();
+        if(isset($this->item)){
+            return $this->item->sum(function($item){
+                return $item->quantity*$item->product->price;
+            });
+        }
+        return 0;
     }
     public function count(){
         return $this->count=$this->item->sum(function($item){
