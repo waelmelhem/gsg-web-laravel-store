@@ -129,30 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </li>
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-bell"></i>
-                        <span class="badge badge-warning navbar-badge">15</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-header">15 Notifications</span>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-envelope mr-2"></i> 4 new messages
-                            <span class="float-right text-muted text-sm">3 mins</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-users mr-2"></i> 8 friend requests
-                            <span class="float-right text-muted text-sm">12 hours</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-file mr-2"></i> 3 new reports
-                            <span class="float-right text-muted text-sm">2 days</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                    </div>
+                    <x-notification-menu />
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -283,8 +260,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
 
                 <div class="content">
-                    
-                    
                     <div class="container-fluid">
                         @yield('content')
                     </div>
@@ -316,7 +291,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </footer>
         </div>
         <!-- ./wrapper -->
+        <div class="card bg-light mb-3" aria-atomic="true" style="position: relative; min-height: 200px;">
+            <div class="toast" id="toast" style="position: absolute; top: 0; right: 0;">
+                <div class="toast-header card bg-light mb-3">
+                <img src="..." class="rounded mr-2" alt="...">
+                <strong class="mr-auto">Notification</strong>
+                <small>now</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="toast-body card bg-light mb-3"  id="toastMessage">
 
+                </div>
+            </div>
+            </div>
         <!-- REQUIRED SCRIPTS -->
 
         <!-- jQuery -->
@@ -324,7 +313,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Bootstrap 4 -->
         <script src={{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}></script>
         <!-- AdminLTE App -->
-        <script src={{ asset('dist/js/adminlte.min.js') }}></script>
+        <script src={{ asset('dist/js/adminlte.min.js') }}>
+        </script>
+        <script>
+            const userId="{{Auth::id()}}"
+            console.log(userId)
+        </script>
+        <script src={{ asset('js/notification.js') }}></script>
     </body>
 
     </html>

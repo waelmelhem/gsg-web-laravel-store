@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\CategroiesCntroller;
+use App\Http\Controllers\Dashboard\NotificationController;
 use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductPageController;
@@ -58,6 +59,8 @@ route::group([
     'middleware'=>'auth'
 ],
 function (){
+    Route::get('notification',[NotificationController::class,"index"])->name('notification');
+    Route::get('notification/{notification}',[NotificationController::class,"read"])->name('notification.read');
     Route::get('/',[DashboardController::class,"index"])->name('dashboard');
     Route::get('/page',[DashboardController::class,"page"])->name('dashboard.page');
     Route::get('products/trash',[ProductsController::class,'trash'])->name('products.trash');

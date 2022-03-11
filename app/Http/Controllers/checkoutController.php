@@ -28,24 +28,45 @@ class checkoutController extends Controller
             'shipping.street_address' => 'required',
             'shipping.city' => 'required',
             'shipping.country_code' => 'required',
-            'shipping.phone_number' => 'required',
+            'shipping.phone_number' => 'required'
 
         ]);
         DB::beginTransaction();
         try {
             //add order
-            $order = Order::create([
-                'tax' => $request->post('tax', 0),
-                'discount' => $request->post('discount', 0),
-                'total' => $cart->total(),
-                'user_id' => Auth::id(),
-                'status' => 'pending',
-                'payment_status' => 'pending',
-                'ip' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-            ]);
+            $order = $this->storeOrder($request,$cart);
             //add order adress
-            $shipping_adresses = $request->input('shipping');
+            $this->storeAdress($request,$order);
+            //add ordr Items
+            $this->storeProductItems($cart,$order);
+            //cart remove
+            $cart->empty();
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+        User::find(1);
+        event(new OrderCreated($order));
+        return redirect('/')->with('success','order done successfullly');
+    }
+    protected  function storeOrder(Request $request,CartRepository $cart)
+    {
+        return Order::create([
+            'tax' => $request->post('tax', 0),
+            'discount' => $request->post('discount', 0),
+            'total' => $cart->total(),
+            'user_id' => Auth::id(),
+            'status' => 'pending',
+            'payment_status' => 'pending',
+            'ip' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+        ]);
+        
+    }
+    protected function storeAdress(Request $request ,$order)
+    {
+        $shipping_adresses = $request->input('shipping');
             $shipping_adresses['type'] = "shipping";
             // dd($shipping_adresses);
             $order->addresses()->create($shipping_adresses);
@@ -55,23 +76,16 @@ class checkoutController extends Controller
             }
             $billing_adresses['type'] = "billing";
             $order->addresses()->create($billing_adresses);
-            //add ordr Items
-            foreach ($cart->all() as $item) {
-                $order->items()->create([
-                    'product_id' => $item->product_id,
-                    'product_name' => $item->product->name,
-                    'price' => $item->product->price,
-                    'quantity' => $item->quantity,
-                ]);
-            }
-            //cart remove
-            $cart->empty();
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollBack();
-            throw $e;
+    }
+    protected FUNCTION storeProductItems(CartRepository $cart,$order)
+    {
+        foreach ($cart->all() as $item) {
+            $order->items()->create([
+                'product_id' => $item->product_id,
+                'product_name' => $item->product->name,
+                'price' => $item->product->price,
+                'quantity' => $item->quantity,
+            ]);
         }
-        event(new OrderCreated($order));
-        return redirect('/')->with('success','order done successfullly');
     }
 }

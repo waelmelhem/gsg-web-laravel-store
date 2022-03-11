@@ -5,6 +5,9 @@ namespace App\Providers;
 use App\Listeners\DeleteCard_logOut;
 use App\Listeners\UpdateCartUserId;
 use App\Listeners\UpdatUserLastLoginAt;
+use App\Events\OrderCreated;
+use App\Listeners\SendOrderCreatedNotification;
+use App\Notifications\orderNotification;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Auth\Events\Registered;
@@ -29,6 +32,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         Logout::class=>[
             DeleteCard_logOut::class,
+        ],
+        OrderCreated::class=>[
+            SendOrderCreatedNotification::class
         ]
     ];
 
