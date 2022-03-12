@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Repositories\cart\CartRepository;
 use App\Repositories\cart\DatabaseRepository;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 use Illuminate\Support\ServiceProvider;
@@ -40,5 +41,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+        // App::setLocale(request('lang',"ar"));
     }
 }

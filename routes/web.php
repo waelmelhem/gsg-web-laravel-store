@@ -1,17 +1,18 @@
 <?php
 
-use App\Http\Controllers\Auth\ChangeUserPasswordController;
-use App\Http\Controllers\Auth\UserProfileController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\checkoutController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\dashboard\CategoriesController;
-use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Dashboard\CategroiesCntroller;
-use App\Http\Controllers\Dashboard\NotificationController;
-use App\Http\Controllers\Dashboard\ProductsController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\checkoutController;
 use App\Http\Controllers\ProductPageController;
+use App\Http\Controllers\Auth\UserProfileController;
+use App\Http\Controllers\Dashboard\ProductsController;
+use App\Http\Controllers\Dashboard\CategroiesCntroller;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\dashboard\CategoriesController;
+use App\Http\Controllers\Dashboard\NotificationController;
+use App\Http\Controllers\Auth\ChangeUserPasswordController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,9 +55,9 @@ Route::get('/news/{id}',[HomeController::class,"news"]);
 //CRUD
 // create ,read,update,delte
 route::group([
-    'prefix'=>'dashboard/',
+    'prefix'=>LaravelLocalization::setlocale().'/dashboard/',
     'as'=>'dashboard.',
-    'middleware'=>'auth'
+    'middleware'=>['auth',"locale"]
 ],
 function (){
     Route::get('notification',[NotificationController::class,"index"])->name('notification');

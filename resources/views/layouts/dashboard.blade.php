@@ -127,6 +127,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
                     </div>
                 </li>
+                
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <x-notification-menu />
@@ -140,6 +141,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
                         <i class="fas fa-th-large"></i>
                     </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        {{__('Language')}}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <a class="dropdown-item" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}" class="dropdown-item">
+                                {{ $properties['native'] }}
+                            </a>
+                        @endforeach
+                    </div>
                 </li>
             </ul>
         </nav>
@@ -221,7 +234,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <li class="nav-item">
                                     <a href="{{$item['route']}}" class="nav-link @if(Route::is($item['route.active'])) active @endif  ">
                                         <i class="{{$item['icon']}}"></i>
-                                        <p>{{$item['title']}}</p>
+                                        <p>{{trans($item['title'])}}</p>
                                         @if(isset($item['badge']))
                                         <span class="{{$item['badge']['style']}}">{{$item['badge']['title']}}</span>
                                         @else
