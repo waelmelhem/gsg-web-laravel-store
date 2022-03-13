@@ -16,7 +16,10 @@ class Category extends Model
     use HasFactory;
     use SoftDeletes;
     protected $fillable = ['name' ,'slug','description','parent_id','image'];
-    
+    protected $hidden=['updated_at','created_at','deleted_at',"image"];
+    protected $appends=[
+        'image_url'
+    ];
     protected static function booted(){
         static::forceDeleted(function($category){
             if($category->image){
