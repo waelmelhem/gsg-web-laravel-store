@@ -7,11 +7,16 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class CategoriesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except('index',"show");
+    }
     /**
      * Display a listing of the resource.
      *
@@ -31,12 +36,18 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
+        $user= Auth::guard('sanctum')->user();
+        if(!$user->tokenCan("category.create")){
+            abort(403);
+        }
+
         $request->validate([
             // "name"=>"required|string|max:255|unique:categories,name,".$id,
             "name"=>[
                 'required',
                 'string',
                 'max:255',
+                "unique:categories,name"
             ],
             "Category_Parent"=>"nullable|int|exists:categories,id",
             "description"=>"nullable|string|min:5",
