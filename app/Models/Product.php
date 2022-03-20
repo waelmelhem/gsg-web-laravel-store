@@ -69,6 +69,9 @@ class Product extends Model
     //         'id'//locall PK related
     // );
     }
+    public  function reviews(){
+        return $this->morphMany(Review::class,"reviewable");
+    }
     public function cartUsers(){
         return $this->belongsToMany(User::class,
         'carts',

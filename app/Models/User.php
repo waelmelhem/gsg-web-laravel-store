@@ -59,4 +59,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'id'
     );
     }
+    public  function reviews(){
+        return $this->morphMany(Review::class,"reviewable");
+    }
+    public function  written_reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

@@ -32,6 +32,7 @@ Route::get('/dashboard/breeze', function () {
 })->middleware(['auth'])->name('dashboard.breeze');
 Route::get('/products/{category:slug?}',[ProductPageController::class,"index"])->name('products');
 Route::get('/products/{category:slug}/{product:slug}',[ProductPageController::class,"show"])->name('product.show');
+Route::post('/products/review/{product:slug}',[ProductPageController::class,"review"])->name('product.review.store');
 
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/profile',[UserProfileController::class,"index"])->name('profile')->middleware(['auth:web,admin']);

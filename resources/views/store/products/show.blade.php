@@ -53,12 +53,10 @@
                         <div class="ps-product__info">
                             <div class="ps-product__rating">
                                 <select class="ps-rating">
-                                    <option value="1">1</option>
-                                    <option value="1">2</option>
-                                    <option value="1">3</option>
-                                    <option value="1">4</option>
-                                    <option value="2">5</option>
-                                </select><a href="#">(Read all 8 reviews)</a>
+                                    @for($i=1;$i<=5;$i++)
+                                        <option value="{{$i<= $product->rating?1:$i}}" >{{$i}}</option>
+                                    @endfor
+                                </select><a href="#">(Read all {{$product->total_reviews}} reviews)</a>
                             </div>
                             <h1>{{ $product->name }}</h1>
                             <p class="ps-product__category"><a
@@ -144,47 +142,38 @@
                                 <p>{{ $product->description }}</p>
                             </div>
                             <div class="tab-pane" role="tabpanel" id="tab_02">
-                                <p class="mb-20">1 review for <strong>Shoes Air Jordan</strong></p>
+                                <p class="mb-20">{{$product->total_reviews}} review for <strong>{{$product->name}}</strong></p>
+                                @foreach($product->reviews()->with('user')->latest()->get() as $review)
                                 <div class="ps-review">
                                     <div class="ps-review__thumbnail"><img
                                             src="{{ asset('assest/store/images/user/1.jpg') }}" alt=""></div>
                                     <div class="ps-review__content">
                                         <header>
                                             <select class="ps-rating">
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="5">5</option>
+                                                @for($i=1;$i<=5;$i++)
+                                                <option value="{{$i<= $review->rating?1:$i}}" >{{$i}}</option>
+                                                @endfor
                                             </select>
-                                            <p>By<a href=""> Alena Studio</a> - November 25, 2017</p>
+                                            <p>By <a href="">{{$review->user->name}}</a> {{$review->created_at->format('l','d',"Y")}}</p>
                                         </header>
-                                        <p>Soufflé danish gummi bears tart. Pie wafer icing. Gummies jelly beans powder.
-                                            Chocolate bar pudding macaroon candy canes chocolate apple pie chocolate
-                                            cake. Sweet caramels sesame snaps halvah bear claw wafer. Sweet roll soufflé
-                                            muffin topping muffin brownie. Tart bear claw cake tiramisu chocolate bar
-                                            gummies dragée lemon drops brownie.</p>
+                                        <p>
+                                            {{$review->review}}
+                                        </p>
                                     </div>
                                 </div>
-                                <form class="ps-product__review" action="_action" method="post">
+                                @endforeach
+                                <form class="ps-product__review" action="{{route('product.review.store',$product->slug)}}" method="post">
                                     <h4>ADD YOUR REVIEW</h4>
+                                    @csrf
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
                                             <div class="form-group">
-                                                <label>Name:<span>*</span></label>
-                                                <input class="form-control" type="text" placeholder="">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Email:<span>*</span></label>
-                                                <input class="form-control" type="email" placeholder="">
-                                            </div>
-                                            <div class="form-group">
                                                 <label>Your rating<span></span></label>
-                                                <select class="ps-rating">
+                                                <select class="ps-rating" name="rating">
                                                     <option value="1">1</option>
-                                                    <option value="1">2</option>
-                                                    <option value="1">3</option>
-                                                    <option value="1">4</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
                                                     <option value="5">5</option>
                                                 </select>
                                             </div>
@@ -192,10 +181,10 @@
                                         <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 ">
                                             <div class="form-group">
                                                 <label>Your Review:</label>
-                                                <textarea class="form-control" rows="6"></textarea>
+                                                <textarea name="review" class="form-control" rows="6"></textarea>
                                             </div>
                                             <div class="form-group">
-                                                <button class="ps-btn ps-btn--sm">Submit<i
+                                                <button type="submit" class="ps-btn ps-btn--sm">Submit<i
                                                         class="ps-icon-next"></i></button>
                                             </div>
                                         </div>
