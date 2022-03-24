@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\support\str;
 
@@ -20,6 +21,7 @@ class ProductsController extends Controller
      */
     public function index(Request $req)
     {
+        Gate::authorize('products.view');
         $search=$req->query('search');
         $products=Product::search($search)->get();
         return view('dashboard.products.index',compact('products'));
@@ -32,6 +34,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
+        Gate::authorize('products.create');
         $product =new Product();
         $availability=product::availabilityElement();
         $status=product::statusElement();
@@ -47,6 +50,7 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('products.create');
         // dd($request);
         $rules=$this->rules();
         $request->validate($rules);
@@ -88,6 +92,7 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
+        Gate::authorize('products.update');
         $product=product::findOrFail($id);
         $availability=product::availabilityElement();
         $status=product::statusElement();
@@ -104,6 +109,7 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Gate::authorize('products.update');
         $product=product::findOrFail($id);
         $rules=$this->rules($id);
         $request->validate($rules);
@@ -138,6 +144,7 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
+        Gate::authorize('products.delete');
         $product=product::withTrashed()->findOrFail($id);
         if($product->deleted_at){
             $product->forceDelete($id);
@@ -150,6 +157,7 @@ class ProductsController extends Controller
     }
     public function trash()
     {
+        Gate::authorize('products.delete');
         $trashed =product::onlyTrashed()->get();
         return view('dashboard.products.trash',compact('trashed'));
 

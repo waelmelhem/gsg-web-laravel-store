@@ -2,19 +2,28 @@
 
 namespace App\Http\Controllers\dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
-use App\Models\Scopes\Scope1;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\Scopes\Scope1;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\CategoryRequest;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Unique;
 use Illuminate\Validation\ValidationException;
 
 class CategoriesController extends Controller
-{protected function rules($id=0){
+{
+    public function __construct()
+    {
+        $this->middleware("can:categories.view")->only('index');
+        $this->middleware("can:categories.update")->only(['update','edit']);
+        $this->middleware("can:categories.delete")->only(['restore','destroy']);
+        $this->middleware("can:categories.create")->only(["create"]);
+    }
+    protected function rules($id=0){
     return  $rules=[
         // "name"=>"required|string|max:255|unique:categories,name,".$id,
         "name"=>[
@@ -46,11 +55,14 @@ class CategoriesController extends Controller
         ->orderBy('categories.name')
         ->get();
         // dd($categories);
-        return view('dashboard/categories/index',compact('categories'));
+        return view('dashboard.categories.index',compact('categories'));
     }
     public function create()
     {
-
+        // if(Gate::denies("categories.create")){
+        //     abort(403);
+        // }
+        Gate::authorize("categories.create");
         $categories=Category::orderBy('name')->get();
         $category=new Category();
         return view('dashboard.categories.create',compact('categories','category'));
@@ -97,10 +109,10 @@ class CategoriesController extends Controller
         ]);
         // dd($category);
         return redirect()->route('dashboard.categories.index')->with('success'," Category ($request->name) created successfuly");
-   
     }
     public function edit($id)
     {
+        Gate::authorize("categories.update");
         $category=category::find($id);
         $categories=Category::where('id',"<>",$id)->orderBy('name')
         // ->withTrashed() all data as deleted or not 
@@ -120,6 +132,7 @@ class CategoriesController extends Controller
         // $req->validate($this->rules($id),[
         //     'name.required'=>'تأكد من تعبئة حقل الاسم'
         // ]);
+        Gate::authorize("categories.update");
         $path=null;
         $old=null;
         if($req->hasFile('image')){
@@ -149,6 +162,7 @@ class CategoriesController extends Controller
     }
     public function destroy($id)
     {
+        Gate::authorize("categories.delete");
         $category=category::withTrashed()->findOrFail($id);
         if(isset($category->deleted_at)){
             $category->forceDelete();

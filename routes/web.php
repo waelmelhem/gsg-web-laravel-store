@@ -5,6 +5,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\checkoutController;
 use App\Http\Controllers\ProductPageController;
+use App\Http\Controllers\Dashboard\RolesController;
+use App\Http\Controllers\Dashboard\UsersController;
 use App\Http\Controllers\Auth\UserProfileController;
 use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\CategroiesCntroller;
@@ -61,6 +63,7 @@ route::group([
     'middleware'=>['auth',"locale"]
 ],
 function (){
+    
     Route::get('notification',[NotificationController::class,"index"])->name('notification');
     Route::get('notification/{notification}',[NotificationController::class,"read"])->name('notification.read');
     Route::get('/',[DashboardController::class,"index"])->name('dashboard');
@@ -68,6 +71,12 @@ function (){
     Route::get('products/trash',[ProductsController::class,'trash'])->name('products.trash');
     Route::patch('products/{id}/restore',[ProductsController::class,'restore'])->name('products.restore');
     Route::resource('/products',ProductsController::class);
+    Route::resource(
+        "/roles",RolesController::class,
+    );
+    Route::resource(
+        "/users",UsersController::class,
+    );
     route::group([
         'prefix'=>'/categories',
         'as'=>'categories',
