@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\support\str;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ProductsController extends Controller
 {
@@ -113,8 +114,8 @@ class ProductsController extends Controller
         $product=product::findOrFail($id);
         $rules=$this->rules($id);
         $request->validate($rules);
-        $data=$request->except(['_token','_method','image']);
-        $path=null;
+        $data=$request->except(['_token','_method','image',"tags","gallery","delete_media"]);
+        $path=$product->image;
         $old=null;
         if($request->hasFile('image')){
             $image=$request->file('image');
@@ -125,6 +126,15 @@ class ProductsController extends Controller
                 $old=$product->image;
             }
         }
+        if($request->hasFile("gallery")){
+            foreach($request->gallery as $image){
+                $path_2=$image->store("product-gallery",[
+                    'disk'=>"uploads"
+                ]);
+                $product->addMediaFromDisk($path_2,"uploads")
+                ->toMediaCollection("gallery");
+            }
+        }
         $data['slug']=str::slug($request->name);
         $data['image']=$path;
 
@@ -132,6 +142,12 @@ class ProductsController extends Controller
         $product=product::where("id",$id)->update($data);
         if(isset($old)){
             Storage::disk('uploads')->delete($old);
+        }
+        if($request->post("delete_media")){
+            // dd("a");
+            foreach($request->post("delete_media") as $key=>$id){
+                Media::destroy($id);
+            }
         }
         return redirect()->route('dashboard.products.index')->with('success',"product ($request->name) updated successfully");
     }
@@ -183,6 +199,7 @@ class ProductsController extends Controller
             'quantity'=>'required|int|min:0',
             "SKU"=>'nullable|string|unique:products,SKU,'.$id,
             "barcode"=>'nullable|string|unique:products,barcode,'.$id,
+            "delete_media"=>"nullable|array"
         ];
     }
 }

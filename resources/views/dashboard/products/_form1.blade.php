@@ -36,8 +36,11 @@
     </div>
     <div class="col-md-4">
         <x-form.select id="status" title="Status" type="list" name="status" default="Select one" selecteValue="{{$product->status}}" :data="$status"/>
-        <x-form.image  objectimage="{{$product->image_url}}" id="image" title="Image" name="image"/>
+        <x-form.image objectimage="{{$product->image_url}}" id="image" title="image" name="image"/>
+
         <x-form.textArea id="Tags" title="Tags" name="tags" />
+        <x-form.image :gallery="($product->galleryUrls())" multiple="multiple" id="gallery" title="Gallery" name="gallery[]"/>
+
     </div>
 </div>
 <div class="row">

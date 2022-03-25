@@ -10,21 +10,20 @@
             @endif
             <a
                 class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a><img
-                src="{{$product->image_url}}" alt=""><a class="ps-shoe__overlay"
+                src="{{$product->image_url}}" height="200px" width="200px" alt=""><a class="ps-shoe__overlay"
                 href="{{route('product.show',[$product->category->slug,$product->slug])}}"></a>
         </div>
         <div class="ps-shoe__content">
             <div class="ps-shoe__variants">
-                <div class="ps-shoe__variant normal"><img src="images/access/1.jpg"
-                        alt=""><img src="images/access/2.jpg" alt=""><img
-                        src="images/access/3.jpg" alt=""><img src="images/access/4.jpg"
-                        alt=""></div>
+                <div class="ps-shoe__variant normal">
+                    @foreach ($product->galleryUrls() as $url)
+                    <img src="{{$url}}"alt="" height="70px" width="70px">
+                    @endforeach
+                    </div>
                 <select class="ps-rating ps-shoe__rating">
-                    <option value="1">1</option>
-                    <option value="1">2</option>
-                    <option value="1">3</option>
-                    <option value="1">4</option>
-                    <option value="2">5</option>
+                    @for($i=1;$i<=5;$i++)
+                        <option value="{{$i<= $product->rating?1:$i}}" >{{$i}}</option>
+                    @endfor
                 </select>
             </div>
             <div class="ps-shoe__detail"><a class="ps-shoe__name" href="{{route('product.show',[$product->category->slug,$product->slug])}}">{{$product->name}}</a>

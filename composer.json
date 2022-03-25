@@ -14,6 +14,7 @@
         "laravel/tinker": "^2.5",
         "mcamara/laravel-localization": "^1.7",
         "pusher/pusher-php-server": "^7.0",
+        "spatie/laravel-medialibrary": "9.0.0",
         "symfony/intl": "^6.0"
     },
     "require-dev": {

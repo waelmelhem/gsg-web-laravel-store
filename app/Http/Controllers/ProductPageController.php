@@ -19,7 +19,7 @@ class ProductPageController extends Controller
             ]));
         }
         
-        $products=Product::with('category')->latest()->paginate(20);
+        $products=Product::with('category',"media")->paginate(700);
         // dd($products);
         $category=new Category();
         return view('store.products.index',compact([
