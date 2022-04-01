@@ -19,7 +19,6 @@
         <div class="col-md-4">
             <img src="{{$url}}" width="100px">
             <label class="text-danger"><input type="checkbox" name="delete_media[]" value="{{$key}}">delete</label>
-
         </div>
     @endforeach
     </div>

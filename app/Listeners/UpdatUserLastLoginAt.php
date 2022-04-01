@@ -2,11 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Models\User;
+use Throwable;
 use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Auth\Events\Login;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UpdatUserLastLoginAt
 {
@@ -28,9 +29,15 @@ class UpdatUserLastLoginAt
      */
     public function handle(Login $event)
     {
-        $user=$event->user;
+        try{
+            $user=$event->user;
         $user->forceFill([
             'last_login_at'=>Carbon::now(),
         ])->save();
+        }
+        catch(Throwable $e)
+        {
+            
+        }
     }
 }

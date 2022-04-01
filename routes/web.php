@@ -31,7 +31,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::get('/dashboard/breeze', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard.breeze');
+})->middleware(['auth:web,admin'])->name('dashboard.breeze');
 Route::get('/products/{category:slug?}',[ProductPageController::class,"index"])->name('products');
 Route::get('/products/{category:slug}/{product:slug}',[ProductPageController::class,"show"])->name('product.show');
 Route::post('/products/review/{product:slug}',[ProductPageController::class,"review"])->name('product.review.store');
@@ -60,7 +60,7 @@ Route::get('/news/{id}',[HomeController::class,"news"]);
 route::group([
     'prefix'=>LaravelLocalization::setlocale().'/dashboard/',
     'as'=>'dashboard.',
-    'middleware'=>['auth',"locale"]
+    'middleware'=>['auth:web,admin',"locale"]
 ],
 function (){
     
@@ -101,4 +101,4 @@ function (){
 // Route::get('/dashboard/page',[DashboardController::class,"page"])->name('dashboard.page');
 
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';

@@ -1,3 +1,7 @@
+
+@php
+    $username=config("fortify.form_name");
+@endphp
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
