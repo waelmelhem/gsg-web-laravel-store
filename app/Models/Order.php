@@ -16,6 +16,9 @@ class Order extends Model
         'user_agent','discount','tax','total'
 
     ];
+    protected $casts=[
+        "payment_data"=>"json"
+    ];
     protected static function booted()
     {
         static::creating(function(Order $order){

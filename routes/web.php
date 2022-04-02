@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\paymentController;
 use App\Http\Controllers\checkoutController;
 use App\Http\Controllers\ProductPageController;
 use App\Http\Controllers\Dashboard\RolesController;
@@ -51,6 +52,11 @@ Route::delete('/cart/{id}',[CartController::class,'destroy'])->name('cart.destro
 
 Route::get('/checkout',[checkoutController::class,'index'])->name('checkout');
 Route::post('/checkout',[checkoutController::class,'store'])->name('checkout.store');
+
+Route::get("orders/{order}/payments/create",[paymentController::class,"create"])->name("payment.create");
+Route::get("orders/{order}/payments/refund",[paymentController::class,"refund"])->name("payment.refund");
+Route::get("orders/{order}/payments/return",[paymentController::class,"callback"])->name("payments.callback");
+Route::get("orders/{order}/payments/cancel",[paymentController::class,"cancel"])->name("payments.cancel");
 
 Route::get('/news/latest',[HomeController::class,"index"]);
 Route::get('/news/{id}',[HomeController::class,"news"]);

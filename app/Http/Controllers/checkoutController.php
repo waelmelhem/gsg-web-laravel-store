@@ -48,7 +48,7 @@ class checkoutController extends Controller
         }
         User::find(1);
         event(new OrderCreated($order));
-        return redirect('/')->with('success','order done successfullly');
+        return redirect()->route("payment.create",$order->id);
     }
     protected  function storeOrder(Request $request,CartRepository $cart)
     {
