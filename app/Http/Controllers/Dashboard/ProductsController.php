@@ -22,7 +22,8 @@ class ProductsController extends Controller
      */
     public function index(Request $req)
     {
-        Gate::authorize('products.view');
+        // Gate::authorize('products.view');
+        $this->authorize("viewAny",Product::class);
         $search=$req->query('search');
         $products=Product::search($search)->get();
         return view('dashboard.products.index',compact('products'));
@@ -35,7 +36,9 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        Gate::authorize('products.create');
+        // Gate::authorize('products.create');
+        $this->authorize("create",Product::class);
+
         $product =new Product();
         $availability=product::availabilityElement();
         $status=product::statusElement();
@@ -51,7 +54,8 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('products.create');
+        $this->authorize("create",Product::class);
+        // Gate::authorize('products.create');
         // dd($request);
         $rules=$this->rules();
         $request->validate($rules);
@@ -93,8 +97,10 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        Gate::authorize('products.update');
+        
+        // Gate::authorize('products.update');
         $product=product::findOrFail($id);
+        $this->authorize("update",$product);
         $availability=product::availabilityElement();
         $status=product::statusElement();
         // dd($product);
@@ -110,8 +116,9 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Gate::authorize('products.update');
+        // Gate::authorize('products.update');
         $product=product::findOrFail($id);
+        $this->authorize("update",$product);
         $rules=$this->rules($id);
         $request->validate($rules);
         $data=$request->except(['_token','_method','image',"tags","gallery","delete_media"]);
@@ -160,8 +167,9 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        Gate::authorize('products.delete');
+        // Gate::authorize('products.delete');
         $product=product::withTrashed()->findOrFail($id);
+        $this->authorize("delete",$product);
         if($product->deleted_at){
             $product->forceDelete($id);
             Storage::disk('uploads')->delete( $product->image);
@@ -173,13 +181,16 @@ class ProductsController extends Controller
     }
     public function trash()
     {
-        Gate::authorize('products.delete');
+         $this->authorize("delete",Product::class);
+        // Gate::authorize('products.delete');
         $trashed =product::onlyTrashed()->get();
         return view('dashboard.products.trash',compact('trashed'));
 
     }
     public function restore($id){
+        $this->authorize("delete",Product::class);
         $product=product::onlyTrashed()->findOrFail($id);
+        $this->authorize("delete",$product);
         $product->restore();
         return redirect()->route('dashboard.products.index')->with('success',"product ($product->name) restored successfully");
 

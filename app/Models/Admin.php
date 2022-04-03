@@ -11,4 +11,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Admin extends User
 {
     use HasApiTokens,HasFactory,Notifiable;
+    public function hasPermission($key)
+    {
+        return true;
+    }
 }

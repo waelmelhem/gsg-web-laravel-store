@@ -64,13 +64,18 @@
                         <td>{{$product->SKU}}</td>
                         <td>{{$product->status}}</td>
                         <td>{{$product->created_at}}</td>
-                        <td><a href="{{route('dashboard.products.edit',['product'=>$product->id])}}" class="btn btn-outline-primary">Edit</a>
+                        <td>
+                            @can("update", $product)
+                            <a href="{{route('dashboard.products.edit',['product'=>$product->id])}}" class="btn btn-outline-primary">Edit</a>
+                            @endcan
                         </td>
                         <td>
                         <form method="post" action="{{route('dashboard.products.destroy',["product"=>$product->id])}}">
                         @csrf
+                        @can("delete",$product)
                         @method('delete')
                         <button type="submit" class="btn btn-outline-danger">Delete</button>
+                        @endcan
                         </form>
                         </td>
                         
