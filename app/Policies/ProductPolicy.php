@@ -12,7 +12,7 @@ class ProductPolicy
     use HandlesAuthorization;
     public function before(User $user,$ability)
     {
-        dd($user->table);
+        // dd($user->table);
         $admin=Admin::where($user->email,"");
     }
 

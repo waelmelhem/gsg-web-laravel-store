@@ -32,11 +32,11 @@ class Product extends Model implements HasMedia
         $builder->where('products.name','like',"%$value%");
     }
     protected static function booted(){
-        static::softDeleted(function($category){
-            if($category->image){
-                (Storage::disk('uploads')->delete($category->image));
-            }
-        });
+        // static::softDeleted(function($category){
+        //     if($category->image){
+        //         (Storage::disk('uploads')->delete($category->image));
+        //     }
+        // });
         static::creating(function($product){
             $product->slug=Str::slug($product->name);
         });

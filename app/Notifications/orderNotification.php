@@ -34,7 +34,7 @@ class orderNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database','broadcast'];
+        return ['database','broadcast',"mail"];
     }
 
     /**
@@ -43,20 +43,20 @@ class orderNotification extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    // public function toMail($notifiable)
-    // {
-    //     $order=$this->order;
-    //     $billing =$order->addresses()->where("type",'billing')->first();
-    //     // dd($billing->first_name);
-    //     $this->meesage="$billing->first_name  $billing->last_name has new order (#$order->number)";
-    //     return (new MailMessage)
-    //                 ->from("wael@gmail.com","store Admin")
-    //                 ->subject("New Order #".$this->order->name)
-    //                 ->line($this->meesage)
-    //                 ->greeting("Hello $notifiable->name")
-    //                 ->action('Order', url('/dashboard/orders/'.$order->id))
-    //                 ->line('Thank you for using our application!');
-    // }
+    public function toMail($notifiable)
+    {
+        $order=$this->order;
+        $billing =$order->addresses()->where("type",'billing')->first();
+        // dd($billing->first_name);
+        $this->meesage="$billing->first_name  $billing->last_name has new order (#$order->number)";
+        return (new MailMessage)
+                    ->from("wael@gmail.com","store Admin")
+                    ->subject("New Order #".$this->order->name)
+                    ->line($this->meesage)
+                    ->greeting("Hello $notifiable->name")
+                    ->action('Order', url('/dashboard/orders/'.$order->id))
+                    ->line('Thank you for using our application!');
+    }
     public function toDatabase($notifiable){
         return [        
             'title'=>"New Order #".$this->order->number,

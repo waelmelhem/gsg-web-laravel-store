@@ -12,9 +12,9 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ProductsController extends Controller
 {
-    PUBLIC FUNCTION __CONSTRUCT(){
-        // $this->middleware(['auth']);
-    }
+    // PUBLIC FUNCTION __CONSTRUCT(){
+    //     // $this->middleware(['auth']);
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -170,7 +170,8 @@ class ProductsController extends Controller
         // Gate::authorize('products.delete');
         $product=product::withTrashed()->findOrFail($id);
         $this->authorize("delete",$product);
-        if($product->deleted_at){
+        // dd($product->deleted_at);
+        if($product->deleted_at!=null){
             $product->forceDelete($id);
             Storage::disk('uploads')->delete( $product->image);
         }else{
@@ -181,14 +182,15 @@ class ProductsController extends Controller
     }
     public function trash()
     {
-         $this->authorize("delete",Product::class);
+        $this->authorize("delete",new Product());
         // Gate::authorize('products.delete');
         $trashed =product::onlyTrashed()->get();
         return view('dashboard.products.trash',compact('trashed'));
 
     }
     public function restore($id){
-        $this->authorize("delete",Product::class);
+        // $this->authorize("delete",Product::class);
+        // Gate::authorize('products.delete');
         $product=product::onlyTrashed()->findOrFail($id);
         $this->authorize("delete",$product);
         $product->restore();
