@@ -22,7 +22,9 @@
                 <div class="ps-product__columns">
                     @foreach($products as $product)
                     <div class="ps-product__column">
+                        @if(isset($product->category))
                         <x-productCard :product="$product"/>
+                        @endif
                     </div>
                     @endforeach
                 </div>
