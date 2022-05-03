@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductPageController;
 use App\Http\Controllers\Dashboard\RolesController;
 use App\Http\Controllers\Dashboard\UsersController;
 use App\Http\Controllers\Auth\UserProfileController;
+use App\Http\Controllers\dashboard\SettingController;
 use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\CategroiesCntroller;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -69,7 +70,8 @@ route::group([
     'middleware'=>['auth:web,admin',"locale"]
 ],
 function (){
-    
+    Route::get('settings',[SettingController::class,"edit"])->name('settings.edit');
+    Route::patch('settings',[SettingController::class,"update"])->name('settings.update');
     Route::get('notification',[NotificationController::class,"index"])->name('notification');
     Route::get('notification/{notification}',[NotificationController::class,"read"])->name('notification.read');
     Route::get('/',[DashboardController::class,"index"])->name('dashboard');

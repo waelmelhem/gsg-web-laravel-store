@@ -30,10 +30,10 @@ return  [
         ]
     ],
     'setting'=>[
-        'title'=>'Setting',
+        'title'=>'Settings',
         'icon'=>'far fa-circle nav-icon',
-        'route.active'=>"dashboard.setting.*",
-        'route'=>'/dashboard/setting'
+        'route.active'=>"dashboard.settings.*",
+        'route'=>'/dashboard/settings'
     ]
 
 ];
