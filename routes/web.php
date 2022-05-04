@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\OTPController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
@@ -103,6 +104,7 @@ function (){
 
 
 });
+
 
 //dashboard
 // Route::get('/dashboard',[DashboardController::class,"index"])->name('dashboard');

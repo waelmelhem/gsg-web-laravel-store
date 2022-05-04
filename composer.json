@@ -6,11 +6,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.4",
         "laravel/fortify": "^1.12",
         "laravel/framework": "^9.10",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
+        "laravel/vonage-notification-channel": "^3.0",
         "mcamara/laravel-localization": "^1.7",
         "paypal/paypal-checkout-sdk": "^1.0",
         "pusher/pusher-php-server": "^7.0",
